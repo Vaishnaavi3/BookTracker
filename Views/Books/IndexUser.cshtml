@@ -1,0 +1,177 @@
+﻿@model IEnumerable<BookTracker.Models.Book>
+
+@{
+    ViewData["Title"] = "UserBooksPage";
+}
+
+@{
+    var enrollid = TempData["EnrollId"];
+   
+    TempData.Keep("EnrollId");
+
+    }
+    <div>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Book</a>*@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <p class="text-info font-weight-bold">Hello @TempData["UserName"]</p>
+                <p class="text-success"> @TempData["AddedToShelf"]</p>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-xl-grow-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark " asp-controller="UserShelves" asp-action="Index">Shelf</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="UserShelves" asp-action="Indexuser">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <p>Hello @TempData["UserName"]</p>
+
+                <div class="navbar-collapse d-sm-inline-flex flex-sm-row-reverse card-title">
+                    <a class="nav-link text-dark text-right" asp-action="Index" asp-controller="UserShelves">
+
+                        Shelf
+                    </a>
+                    <a class="nav-link text-dark text-right " asp-action="IndexUser" asp-controller="UserShelves">
+
+                        Home
+                    </a>
+                </div>
+
+            </div>
+
+
+
+        </nav>*@
+    </div>
+    <div class="jumbotron bg-dark">
+        <blockquote class="blockquote text-white">
+            "There is more treasure in books than in all the pirate's loot on Treasure Island."
+            <footer class="blockquote-footer font-weight-bold font-italic text-white">
+                Walt Disney
+            </footer>
+        </blockquote>
+       
+    </div>
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <form asp-controller="Books" asp-action="IndexUser" method="get">
+
+                <div class="d-flex justify-content-center">
+                    <input type="text" name="SearchString" placeholder="Search.." />
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SubTitle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Author)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PublishedOn)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Pages)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Genre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Language)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Rating)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Author)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PublishedOn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pages)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Genre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Language)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rating)
+                            </td>
+                            <td>
+                               
+
+                                @* Just For Now *@
+                                <form asp-controller="UserShelves" asp-action="Create" method="post">
+
+                                    @{
+                                        string reading = item.Id + " 2";
+                                    }
+                                    <button class="btn btn-outline-primary" type="submit" name="Shelf" value="@reading">Reading</button>
+                                    @{
+                                        var read = item.Id + " 1";
+                                    }
+                                    <button class="btn btn-outline-secondary" type="submit" name="Shelf" value="@read">Read</button>
+                                    @{
+                                        var KeepOnShelf = item.Id + " 3";
+                                    }
+                                    <button class="btn btn-outline-info" type="submit" name="Shelf" value="@KeepOnShelf">KeepOnShelf</button>
+
+
+                                </form>
+                              
+
+                            </td>
+                          
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+          
+    @*var message = '';
+    if (message.length) {
+        alert(message);
+    }
+
+            </script>*@

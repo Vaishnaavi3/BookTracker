@@ -1,0 +1,186 @@
+﻿
+<a href="~/wwwroot/css/bootstrap.min.css" rel="stylesheet"></a>
+@*<style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1 {
+            border-radius: 2px;
+        }
+
+        .button2 {
+            border-radius: 4px;
+        }
+
+        .button3 {
+            border-radius: 8px;
+        }
+
+        .button4 {
+            border-radius: 12px;
+        }
+
+        .button5 {
+            border-radius: 50%;
+        }
+    </style>*@
+
+@*ModalPopUp Form*@
+@*</div>
+        </div>
+    </div>*@
+
+
+@*<button id="btnShowModal" type="button"
+        class="btn btn-sm btn-default pull-left col-lg-11 button button4">
+    SignUp1
+</button>*@
+@* Form SignUp *@
+
+<div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <form asp-action="Create" asp-controller="UserDetails">
+        <div class="modal-dialog" role="document">
+                <a>Name</a>
+                <input class="align-self-md-start" id="Name" type="text">
+               
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnShowModal").click(function () {
+            $("#loginModal").modal('show');
+        });
+
+        $("#btnHideModal").click(function () {
+            $("#loginModal").modal('hide');
+        });
+    });
+</script>
+
+
+
+
+@* From Create UserDetails page
+
+
+    @*from bootsrap documentation *@
+@*<div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-outline-success">Save changes</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+@*<div class="modal" tabindex="-1" id="loginModal"
+         data-keyboard="false" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">New User</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control" type="text"
+                                   placeholder="Login Username" id="inputUserName" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Login Password"
+                                   type="password" id="inputPassword" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary button button4">Sign</button>
+                    <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                        Hide
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>*@
+@*<script href="~/wwwroot/js/bootstrap.js"></script>*@
+
+
+
+@*<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js">
+    </script>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>*@
+@*<script src="bootstrap/js/bootstrap.min.js"></script>*@
+@*<script type="text/javascript" href="~/wwwroot/lib/jquery/dist/jquery.min.js"></script>*@
+@*<script href="~/wwwroot/lib/jquery/dist/jquery.js"></script>*@
+
+
+@*<script text="text/javascript" href="~/wwwroot/js/bootstrap.min.js"></script>*@
+
+
+
+
+
+<div class="p-2 bd-highlight">
+    <a class="nav-link text-dark" asp-area="" asp-controller="UserShelves" asp-action="Index">LogIn</a>
+</div>
+<div>
+</div>

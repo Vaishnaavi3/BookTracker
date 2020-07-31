@@ -1,0 +1,83 @@
+﻿@model BookTracker.Models.UserDetails
+
+@{
+    ViewData["Title"] = "LogIn";
+}
+
+
+<div class="modal" tabindex="-1" id="loginModal"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-md-center">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bolder table-warning text-lg-center">LogIn</h5>
+
+                    <div asp-validation-summary="ModelOnly" class="modal-body"></div>
+                    <form class="justify-content-md-center" asp-action="LogIn">
+                        
+                       
+                        <div class="form-group">
+                            <label asp-for="EmailId" class="control-label float-sm-left"></label>
+                            <input asp-for="EmailId" class="form-control" />
+                            <span asp-validation-for="EmailId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label float-sm-left"></label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="submit" value="LogIn" class="btn btn-success" />
+                            <input type="submit" asp-controller="Books" asp-action="Index" value="Cancel" class="btn btn-danger" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        //    $("#btnShowModal").click(function () {
+        $("#loginModal").modal('show');
+    });
+
+</script>
+
+
+
+
+
+@*<h1>Create</h1>
+
+    <h4>UserDetails</h4>
+    <hr />*@
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    @model AweCoreDemo.ViewModels.Input.DinnerInput
+    @using (Html.BeginForm())
+    {
+        using (Html.Awe().BeginContext())
+        {
+            @Html.EditorFor(o => o.Name)
+            @Html.EditorFor(o => o.Date)
+            @Html.EditorFor(o => o.Chef)
+            @Html.EditorFor(o => o.Meals)
+            @Html.EditorFor(o => o.BonusMealId)
+        }
+    }*@
+
+@* from partialview form
+    @* from sign up form *@
+
+@*
+*@

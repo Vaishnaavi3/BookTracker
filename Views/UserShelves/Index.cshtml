@@ -1,0 +1,96 @@
+﻿@model IEnumerable<BookTracker.Models.UserShelf>
+
+
+
+@{
+    ViewData["Title"] = "UserSelf";
+}
+
+@{
+    var enrollid = TempData["EnrollId"];
+
+    TempData.Keep("EnrollId");
+
+}
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow m-md-3">
+    <div class="container">
+        <div class="navbar-collapse d-sm-inline-flex flex-sm-row-reverse">
+            <a class="nav-link text-dark text-right" asp-action="IndexUser" asp-controller="Books">
+
+                Home
+            </a>
+        </div>
+    </div>
+</nav>
+<form asp-controller="UserShelves" asp-action="Index" method="get">
+
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <button class="btn btn-outline-secondary btn-lg btn-sm" type="submit" name="SearchEnum" value="0">ALL</button>
+        </li>
+        <li class="nav-link">
+            <button class="btn btn-outline-warning btn-lg" type="submit" name="SearchEnum" value="3">KeepOnShelf</button>
+        </li>
+        <li class="nav-link">
+            <button class="btn btn-outline-info btn-lg" type="submit" name="SearchEnum" value="2">Reading</button>
+        </li>
+        <li class="nav-link">
+            <button class="btn btn-outline-success btn-lg" type="submit" name="SearchEnum" value="1">Read</button>
+        </li>
+
+    </ul>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Pages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDetails.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                    @Html.DisplayFor(modelItem => item.Book.SubTitle)
+
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Author)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Pages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Language)
+
+                </td>
+                <td>
+                      
+                        <a class="border-danger" asp-action="Delete" name="id" value="@item.Serialno" asp-route-id="@item.Serialno">Remove</a>
+                    </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+
+
+

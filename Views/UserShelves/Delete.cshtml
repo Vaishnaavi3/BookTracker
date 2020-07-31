@@ -1,0 +1,42 @@
+﻿@model BookTracker.Models.UserShelf
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+    <div class="modal" tabindex="-1" id="DeleteShelfEntity"
+         data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-md-center">
+                    <p class="font-weight-bold">Are you sure you want to delete entry</p>
+                    <div>
+                        <p class="text-info border-left-0">@TempData["BookName"]</p>
+
+
+                    </div>
+                    @*<div>*@
+
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Serialno" />
+                            <input type="submit" value="Delete" class="btn btn-danger" /> 
+                            <button class="bg-secondary"type="submit" asp-action="Index">No</button>
+                        </form>
+                    @*</div>*@
+                </div>
+                </div>
+            </div>
+        </div>
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+                    </script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                    <script type="text/javascript">
+
+                        $(window).load(function () {
+                            
+                            $("#DeleteShelfEntity").modal('show');
+                        });
+
+                    </script>

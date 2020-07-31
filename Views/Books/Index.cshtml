@@ -1,0 +1,146 @@
+﻿@model IEnumerable<BookTracker.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+
+</script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<div>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 w-50 h-100 float-right">
+        <div class="container">
+            @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Book</a>*@
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-xl-grow-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark " asp-controller="UserDetails" asp-action="SignUp">SignUp</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="UserDetails" asp-action="LogIn">LogIn</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+  
+
+</div>
+
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 w-100 h-50 float-right">
+        <div class="container">
+            </div>
+    </nav>
+        <div class="jumbotron bg-dark">
+            <div>
+                 <blockquote class="blockquote text-white">
+              @*  <p class="text-white-50">*@
+                    "There is more treasure in books than in all the pirate's loot on Treasure Island."
+                @*</p>*@
+                   <footer class="blockquote-footer font-weight-bold font-italic text-white">
+                @*<p class="text-white text-xl-right">*@
+                    Walt Disney
+
+                @*</p>*@
+
+                 </footer>
+                 </blockquote>
+            </div>
+
+
+        </div>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <form asp-controller="Books" asp-action="Index" method="get">
+            <div class="d-flex justify-content-center">
+                <input type="text" name="SearchString" placeholder="Search.." />
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PublishedOn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pages)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Genre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Language)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rating)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublishedOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pages)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Language)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+
+        @*<script type="text/javascript">
+
+
+                        var message = '@TempData["SignUp"]';
+                                    if (message.length) {
+                                        alert(message);
+                                    }
+
+        </script>*@
