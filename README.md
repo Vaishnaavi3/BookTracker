@@ -8,5 +8,4 @@ Prerequisites:
               bootstrap
               
               
-Screenshots:
-[1] MainPage
+
