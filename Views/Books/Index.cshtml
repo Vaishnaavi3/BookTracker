@@ -11,13 +11,7 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-    .checked{
-        color: orange;
-       
-    }
-    .unchecked{
-        color: whitesmoke;
-    }
+   
     .star-ratings {
         unicode-bidi: bidi-override;
         color: antiquewhite;
@@ -38,8 +32,7 @@
         top: 0;
         left: 0;
         overflow: hidden;
-       /* // Allows us to grab the width of the span elements span*/
-
+   
     
         display: inline-block;
     
@@ -58,7 +51,7 @@
 <div>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 w-50 h-100 float-right">
         <div class="container">
-            @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Book</a>*@
+        
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -87,14 +80,14 @@
         <div class="jumbotron bg-dark">
             <div>
                  <blockquote class="blockquote text-white">
-              @*  <p class="text-white-50">*@
+           
                     "There is more treasure in books than in all the pirate's loot on Treasure Island."
-                @*</p>*@
+              
                    <footer class="blockquote-footer font-weight-bold font-italic text-white">
-                @*<p class="text-white text-xl-right">*@
+            
                     Walt Disney
 
-                @*</p>*@
+              
 
                  </footer>
                  </blockquote>
@@ -167,20 +160,8 @@
                             @Html.DisplayFor(modelItem => item.Language)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Rating)
-
-                            @*@{
-                                int rate = (int)item.Rating;
-                            }
-                           
-                            @for (int i = 0; i < rate; i++)
-                            {
-                                <span class="fa fa-star active checked"></span>
-                            }
-                            @for (int i = rate; i < 5; i++)
-                            {
-                                <span class="fa fa-star unchecked"></span>
-                            }*@
+                       
+                          
                             @{ 
                                 var rate = (item.Rating / 5);
                                 int percentage = (int)(rate*100);
@@ -207,40 +188,14 @@
 
       <script>
           $(document).ready(function () {
-              // Gets the span width of the filled-ratings span
-              // this will be the same for each rating
-
+              
               var star_rating_width = $('.fill-ratings span').width();
-              // Sets the container of the ratings to span width
-              // thus the percentages in mobile will never be wrong
+             
               $('.star-ratings').width(star_rating_width);
-              alert(star_rating_width);
+             
           });
          
       </script>
 
-            @*function SCRate() {
-        for (var i = 1; i <= @totalRating; i++) {
-            $("#sRate" + i).attr('class', 'starGlowN');
-        }
-    }*@
-            @*$(document).ready(function () {
-                (".rate").starPercentage(30)
-            }
-            );
-            
-                const starPercentage = (3.5 / 5) * 100;
-                const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                document.querySelector(`.${'#rating'} .stars-inner`).style.width = starPercentageRounded;
-           
-        </script>*@
-
-        @*<script type="text/javascript">
-
-
-                        var message = '@TempData["SignUp"]';
-                                    if (message.length) {
-                                        alert(message);
-                                    }
-
-        </script>*@
+          
+      
