@@ -64,7 +64,7 @@ namespace BookTracker.Controllers
          // GET: UserDetails/SignUp
         public IActionResult SignUp()
         {
-            ViewData["bool"] = false;
+           
 
             return View();
         }
@@ -80,10 +80,18 @@ namespace BookTracker.Controllers
 
             if (ModelState.IsValid)
             {
+                //     var user = await _context.UserDetails
+                //.FirstOrDefaultAsync(m => m.EmailId.Equals(userDetails.EmailId));
+                //     if (user ==null)
+                //     {
                 _context.Add(userDetails);
                 await _context.SaveChangesAsync();
                 TempData["SignUp"] = "Successfully Registered!";
-
+                //     }
+                //     else
+                //     {
+                //         TempData["emailExist"]="Email"
+                //     }
 
             }
             else if (ModelState == null)

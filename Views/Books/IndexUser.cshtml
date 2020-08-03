@@ -20,7 +20,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <p class="text-info font-weight-bold">Hello @TempData["UserName"]</p>
-                <p class="text-success"> @TempData["AddedToShelf"]</p>
+               
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-xl-grow-0">
                         <li class="nav-item">
@@ -110,57 +110,57 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SubTitle)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Author)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.PublishedOn)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Pages)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Genre)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Language)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Rating)
-                            </td>
-                            <td>
-                               
-
-                                @* Just For Now *@
-                                <form asp-controller="UserShelves" asp-action="Create" method="post">
-
-                                    @{
-                                        string reading = item.Id + " 2";
-                                    }
-                                    <button class="btn btn-outline-primary" type="submit" name="Shelf" value="@reading">Reading</button>
-                                    @{
-                                        var read = item.Id + " 1";
-                                    }
-                                    <button class="btn btn-outline-secondary" type="submit" name="Shelf" value="@read">Read</button>
-                                    @{
-                                        var KeepOnShelf = item.Id + " 3";
-                                    }
-                                    <button class="btn btn-outline-info" type="submit" name="Shelf" value="@KeepOnShelf">KeepOnShelf</button>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublishedOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pages)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Language)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <p class="text-success"> @TempData["AddedToShelf"]</p>
+                        <td>
 
 
-                                </form>
-                              
+                            @* Just For Now *@
+                            <form asp-controller="UserShelves" asp-action="Create" method="post">
 
-                            </td>
-                          
-                        </tr>
+                                @{
+                                    string reading = item.Id + " 2";
+                                }
+                                <button class="btn btn-outline-primary" type="submit" name="Shelf" value="@reading">Reading</button>
+                                @{
+                                    var read = item.Id + " 1";
+                                }
+                                <button class="btn btn-outline-secondary" type="submit" name="Shelf" value="@read">Read</button>
+                                @{
+                                    var KeepOnShelf = item.Id + " 3";
+                                }
+                                <button class="btn btn-outline-info" type="submit" name="Shelf" value="@KeepOnShelf">KeepOnShelf</button>
+
+
+                            </form>
+
+                        </td>
+
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -168,7 +168,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 
 
-          
+           
     @*var message = '';
     if (message.length) {
         alert(message);
