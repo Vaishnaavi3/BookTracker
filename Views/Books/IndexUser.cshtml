@@ -8,6 +8,7 @@
     var enrollid = TempData["EnrollId"];
 
     TempData.Keep("EnrollId");
+   // TempData.Keep("AddedToShelf");
 
 }
 <div>
@@ -20,7 +21,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <p class="text-info font-weight-bold">Hello @TempData["UserName"]</p>
-
+           
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-xl-grow-0">
                     <li class="nav-item">
@@ -42,8 +43,8 @@
             Walt Disney
         </footer>
     </blockquote>
-
 </div>
+<p class="text-success"> @TempData["AddedToShelf"]</p>
 <style>
 
     .star-ratings {
@@ -73,6 +74,7 @@
         z-index: 0;
     }
 </style>
+
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -153,29 +155,27 @@
                             <span>★★★★★</span>
                         </div>
                     </div>
+
                 </td>
-                <p class="text-success"> @TempData["AddedToShelf"]</p>
                 <td>
 
-
-                    @* Just For Now *@
-                    <form asp-controller="UserShelves" asp-action="Create" method="post">
-
+                    <select id="dropdownAddToShelf" onchange="GetSelectedTextValue(this)">
+                        <option class="text-secondary" value="">Add To Shelf</option>
                         @{
                             string reading = item.Id + " 2";
                         }
-                        <button class="btn btn-outline-primary" type="submit" name="Shelf" value="@reading">Reading</button>
+                        <option value="@reading">Reading</option>ss
                         @{
-                            var read = item.Id + " 1";
+                            string read = item.Id + " 1";
                         }
-                        <button class="btn btn-outline-secondary" type="submit" name="Shelf" value="@read">Read</button>
+                        <option value="@read">Read</option>
                         @{
-                            var KeepOnShelf = item.Id + " 3";
+                            string KeepOnShelf = item.Id + " 3";
                         }
-                        <button class="btn btn-outline-info" type="submit" name="Shelf" value="@KeepOnShelf">KeepOnShelf</button>
+                        <option value="@KeepOnShelf">Keep On Shelf</option>
 
+                    </select>
 
-                    </form>
 
                 </td>
 
@@ -184,16 +184,38 @@
     </tbody>
 </table>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+</script>
 <script>
     $(document).ready(function () {
 
         var star_rating_width = $('.fill-ratings span').width();
 
         $('.star-ratings').width(star_rating_width);
-       
+
     });
 
+
+
+    function GetSelectedTextValue(dropdownAddToShelf) {
+
+        var selectedValue = dropdownAddToShelf.value;
+
+
+
+        $.ajax({
+
+            url: '@Url.Action("Create","UserShelves")',
+            dataType:'json',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: "shelf=" + selectedValue,
+
+            
+        });
+
+    }
 </script>
 
 

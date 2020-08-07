@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookTracker.Data;
 using BookTracker.Models;
+using Newtonsoft.Json;
 
 namespace BookTracker.Views
 {
@@ -17,6 +18,17 @@ namespace BookTracker.Views
         public UserDetails1Controller(BookTrackerContext context)
         {
             _context = context;
+        }
+
+        //POST: UserDetails/Index1
+        [HttpPost]
+        public IActionResult Index1(string number)
+        {
+            // JsonConvert.DeserializeObject<MyObjectTye(number)>
+            int value = number.Length;
+
+            System.Diagnostics.Debug.WriteLine(number+"from contoller");
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: UserDetails1

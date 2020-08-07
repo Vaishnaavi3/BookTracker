@@ -17,6 +17,7 @@ namespace BookTracker.Controllers
     {
         private readonly BookTrackerContext _context;
 
+        
         /// <summary>
         /// LogIn
         /// </summary>
@@ -24,7 +25,7 @@ namespace BookTracker.Controllers
         // GET: UserDetails/LogIn
         public IActionResult LogIn()
         {
-            ViewData["bool"] = false;
+           // ViewData["bool"] = false;
 
             return View();
         }
@@ -76,7 +77,7 @@ namespace BookTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUp([Bind("EnrollId,Name,DateOfBirth,EmailId,Password")] UserDetails userDetails)
         {
-            ViewData["bool"] = false;
+           // ViewData["bool"] = false;
 
             if (ModelState.IsValid)
             {

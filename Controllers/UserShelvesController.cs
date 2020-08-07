@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookTracker.Data;
 using BookTracker.Models;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace BookTracker.Controllers
 {
@@ -76,37 +78,36 @@ namespace BookTracker.Controllers
         /// Add to Shelf
         /// </summary>
         /// <returns></returns>
-        // GET: UserShelves/Create
-        public IActionResult Create()
-        {
-            return View();
-            //return RedirectToAction("Index", "Books");
-        }
+        //// GET: UserShelves/Create
+        //public IActionResult Create(int shelf)
+        //{
+        //    return View();
+        //}
 
         // POST: UserShelves/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+
         //public async Task<IActionResult> Create([Bind("Serialno,Category,BookId,UserDetailsEnrollId")] UserShelf userShelf)
+        [HttpPost]
         public async Task<IActionResult> Create(string shelf)
 
         {
-            
+
 
             string[] Search = shelf.Trim().Split(' ');
             int bookid = Convert.ToInt32(Search[0]);
             Category? category = (Category?)Convert.ToInt32(Search[1]);
 
-           
+
             UserShelf userShelf = new UserShelf();
             userShelf.Category = category;
             int enrollid = (int)TempData["EnrollId"];
-             System.Diagnostics.Debug.WriteLine(bookid+category);
+            System.Diagnostics.Debug.WriteLine(bookid + category);
 
             if (bookid != 0)
             {
-              
+
                 userShelf.Book = _context.Book.Where(o => o.Id ==
                  bookid).FirstOrDefault();
                 userShelf.UserDetails = _context.UserDetails.Where(o => o.EnrollId ==
@@ -119,10 +120,10 @@ namespace BookTracker.Controllers
             }
 
             _context.Add(userShelf);
-                await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             TempData.Keep("EnrollId");
             TempData["AddedToShelf"] = "Added Successfully";
-                return RedirectToAction("IndexUser","Books");
+            return RedirectToAction("IndexUser","Books");
 
            
         }

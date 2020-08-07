@@ -17,7 +17,7 @@ namespace BookTracker.Controllers
         {
             _logger = logger;
         }
-
+        //GET: Home/Index
         public IActionResult Index()
         {
             return View();
