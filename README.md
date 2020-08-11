@@ -8,6 +8,6 @@ Prerequisites:
               bootstrap
               
               
-![Website MainPage](/BookTracker.png)
+![Website MainPage](/Images/BookTracker.png)
               
 
