@@ -9,6 +9,7 @@
 
 
     }*@
+@model IEnumerable<BookTracker.Models.UserShelf>
 
 <h6>I am From Home Index</h6>
 
@@ -16,7 +17,7 @@
     <select name="ShelfName" id="dropdownAddToShelf" label="Add To Shelf" onchange="GetSelectedTextValue(this)">
         <option value=""></option>
         @{
-            string reading =  " 2";
+            string reading = " 2";
         }
         <option value="@reading">Reading</option>ss
         @{
@@ -35,32 +36,34 @@
 
 </script>
 <script type="text/javascript">
-    function GetSelectedTextValue(dropdownAddToShelf) {
-        var selectedText = dropdownAddToShelf.options[dropdownAddToShelf.selectedIndex].innerHTML;
+
+     // var categoryy = @*@Html.Raw(Json.Serialize(Model));*@
+   // var categoryy1 = 
+
+    console.log(categoryy);
+    $(document).ready(function () {
+     //   console.log(categoryy);
+        console.log(categoryy1);
+
+        $('#reading').prop("disabled", true);
+    });
+
+
+    //On select dropdown
+       function GetSelectedTextValue(dropdownAddToShelf) {
+
         var selectedValue = dropdownAddToShelf.value;
-        alert("Selected Text: " + selectedText + " Value: " + selectedValue);
-        
-        console.log(JSON.stringify(selectedValue) + "From stringify");
-        console.log(selectedValue);
-        var number = { 'number': '1322' };
         $.ajax({
-            //  url: "/UserShelves/Create",
-            url: '@Url.Action("Index1","UserDetails1")',
-            dataType: 'json',
-           // contentType: 'application/json; charset=UTF-8',
 
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-
+            url: '@Url.Action("Create","UserShelves")',
+            dataType:'json',
             type: 'POST',
-            data: "number=" + JSON.stringify(selectedValue),
-          
-            success: function (data) {
-                // Variable data contains the data you get from the action
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            data: "shelf=" + selectedValue,
 
-                alert("success" + data);
-            },
 
         });
+
     }
 
 </script>

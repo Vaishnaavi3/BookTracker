@@ -13,13 +13,14 @@
 
 }
 
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow m-md-3">
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow md-3">
     <div class="container">
         <div class="navbar-collapse d-sm-inline-flex flex-sm-row-reverse">
-            <a class="nav-link text-dark text-right" asp-action="IndexUser" asp-controller="Books">
 
+            <a class="nav-link text-dark text-right" asp-action="IndexUser" asp-controller="Books">
                 Home
             </a>
+            <p class="text-warning"> @TempData["AddedToShelf"]</p>
         </div>
     </div>
 </nav>
@@ -27,22 +28,50 @@
 
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-            <button class="btn btn-outline-secondary btn-lg btn-sm" type="submit" name="SearchEnum" value="0">ALL</button>
+            <button class="btn btn-outline-secondary btn-lg btn-sm" id="btn0" type="submit" name="SearchEnum" value="0">ALL</button>
         </li>
         <li class="nav-link">
-            <button class="btn btn-outline-warning btn-lg" type="submit" name="SearchEnum" value="3">KeepOnShelf</button>
+            <button class="btn btn-outline-warning btn-lg" type="submit" id="btn3" name="SearchEnum" value="3">KeepOnShelf</button>
         </li>
         <li class="nav-link">
-            <button class="btn btn-outline-info btn-lg" type="submit" name="SearchEnum" value="2">Reading</button>
+            <button class="btn btn-outline-info btn-lg" type="submit" id="btn2" name="SearchEnum" value="2">Reading</button>
         </li>
         <li class="nav-link">
-            <button class="btn btn-outline-success btn-lg" type="submit" name="SearchEnum" value="1">Read</button>
+            <button class="btn btn-outline-success btn-lg" type="submit" id="btn1" name="SearchEnum" value="1">Read</button>
         </li>
 
     </ul>
 </form>
 
+<style>
 
+    .star-ratings {
+        unicode-bidi: bidi-override;
+        color: antiquewhite;
+        font-size: 25px;
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .fill-ratings {
+        color: orange;
+        padding: 0;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .empty-ratings {
+        padding: 0;
+        display: block;
+        z-index: 0;
+    }
+</style>
 <table class="table">
     <thead>
         <tr>
@@ -82,15 +111,147 @@
 
                 </td>
                 <td>
-                      
-                        <a class="border-danger" asp-action="Delete" name="id" value="@item.Serialno" asp-route-id="@item.Serialno">Remove</a>
-                    </td>
+
+                   
+                   
+
+                    <select id="dropdownAddToShelf" onchange="GetSelectedTextValue(this)">
+                        <option class="text-secondary" value="">Option</option>
+                        @{
+                            string reading = item.Book.Id + " 1";
+                        }
+                        <option id="reading" value="@reading">Reading</option>ss
+                        @{
+                            string read = item.Book.Id + " 2";
+                        }
+                        <option id="read" value="@read">Read</option>
+                        @{
+                            string KeepOnShelf = item.Book.Id + " 3";
+                        }
+                        <option id="keepOnShelf" value="@KeepOnShelf">Keep On Shelf</option>
+                       
+                        <option id="remove" value="@item.Serialno">Remove</option>
+
+                    </select>
+
+          </td>
             </tr>
 
         }
 
     </tbody>
 </table>
+<div class="modal" tabindex="-1" id="DeleteShelfEntity"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-md-center">
+                <p class="font-weight-bold">Are you sure you want to delete entry</p>
+                <div>
+                    <p class="text-info border-left-0">@TempData["BookName"]</p>
 
+
+                </div>
+                @*<div>*@
+
+                <form asp-action="DeleteConfirmed">
+                  @*  <input type="hidden" value="@serialno" />*@
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <button class="bg-secondary" type="submit" asp-action="Index">No</button>
+                </form>
+                @*</div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+    $(window).load(function () {
+
+        $("#DeleteShelfEntity").modal('show');
+    });
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script>
+
+
+    $(document).ready(function () {
+
+        if (@TempData["category"] == 1) {
+
+            $("#reading").prop("disabled", true);
+
+
+        } else if (@TempData["category"] == 2) {
+
+            $("#read").remove();
+        } else if (@TempData["category"] == 3) {
+
+            $("#keepOnShelf").remove();
+        }
+
+
+    });
+
+
+   
+
+
+    //On select dropdown
+    function GetSelectedTextValue(dropdownAddToShelf) {
+
+    
+        var selectedText = $("#dropdownAddToShelf option:selected").text().toString();
+        var selectedValue = dropdownAddToShelf.value;
+       
+        if (selectedText == "Remove") {
+            $.ajax({
+
+                url: '@Url.Action("Delete","UserShelves")',
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                //contentType: 'application/json; charset=UTF-8',
+
+                data: "id=" + selectedValue,
+                success: function (data) {
+                    location.reload(true);
+                }
+
+            });
+
+
+
+        } else {
+
+
+                $.ajax({
+
+                    url: '@Url.Action("Edit","UserShelves")',
+                    dataType:'json',
+                    type: 'POST',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    //contentType: 'application/json; charset=UTF-8',
+
+                    data: "shelf=" + selectedValue,
+                    success: function (data) {
+                        location.reload(true);
+                    }
+
+                });
+
+       }
+
+
+    }
+</script>
 
 

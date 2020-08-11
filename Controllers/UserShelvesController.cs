@@ -16,7 +16,7 @@ namespace BookTracker.Controllers
     {
         private readonly BookTrackerContext _context;
 
-      
+     
         /// <summary>
         /// filter category(string) and user
         /// </summary>
@@ -40,7 +40,7 @@ namespace BookTracker.Controllers
 
                 }
                 TempData.Keep("EnrollId");
-
+            TempData["category"] = Convert.ToInt32(searchEnum);
          
             return View(await shelf.ToListAsync());
         }
@@ -103,122 +103,163 @@ namespace BookTracker.Controllers
             UserShelf userShelf = new UserShelf();
             userShelf.Category = category;
             int enrollid = (int)TempData["EnrollId"];
-            System.Diagnostics.Debug.WriteLine(bookid + category);
-
-            if (bookid != 0)
-            {
+            //System.Diagnostics.Debug.WriteLine(bookid + category);
 
                 userShelf.Book = _context.Book.Where(o => o.Id ==
                  bookid).FirstOrDefault();
                 userShelf.UserDetails = _context.UserDetails.Where(o => o.EnrollId ==
                 enrollid).FirstOrDefault();
 
-            }
-            else
-            {
-                return RedirectToAction("Index", "Books");
-            }
+            //here checking where book exists with the same entry
+            var entries = from m in _context.UserShelf.Include(m => m.Book).Include(m => m.UserDetails)
+                        select m;
+          
+             var   entry = entries.Where(s => s.UserDetails.EnrollId.Equals(userShelf.UserDetails.EnrollId) && s.Book.Id.Equals(userShelf.Book.Id));
+            
+            System.Diagnostics.Debug.WriteLine(entry.FirstOrDefault());
+            int serialno = entry.Select(o => o.Serialno).FirstOrDefault();
 
-            _context.Add(userShelf);
-            await _context.SaveChangesAsync();
-            TempData.Keep("EnrollId");
-            TempData["AddedToShelf"] = "Added Successfully";
-            return RedirectToAction("IndexUser","Books");
+            if (serialno !=0)
+            {
+                TempData["AddedToShelf"] = "Already Added";
+                TempData["Bookid"] = bookid;
+                TempData.Keep("EnrollId");
+
+                return Json("Already Added");
+
+            }
+           
+
+                _context.Add(userShelf);
+                await _context.SaveChangesAsync();
+                TempData.Keep("EnrollId");
+                TempData["AddedToShelf"] = "Added Successfully";
+                TempData["Bookid"] = bookid;
+
+                //   return RedirectToPage("IndexUser", "Books");
+                return Json("Added Successfully");
+
+          
 
            
         }
 
-        // GET: UserShelves/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+       // GET: UserShelves/Edit/5
+        //public async Task<IActionResult> Edit()
+        //{
+        //    //if (id == null)
+        //    //{
+        //    //    return NotFound();
+        //    //}
 
-            var userShelf = await _context.UserShelf.FindAsync(id);
-            if (userShelf == null)
-            {
-                return NotFound();
-            }
-            return View(userShelf);
-        }
+        //    //var userShelf = await _context.UserShelf.FindAsync(id);
+        //    //if (userShelf == null)
+        //    //{
+        //    //    return NotFound();
+        //    //}
+        //    return View();
+        //}
 
-        // POST: UserShelves/Edit/5
+        // POST: UserShelves/Edit/
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Serialno,Category")] UserShelf userShelf)
-        {
-            if (id != userShelf.Serialno)
-            {
-                return NotFound();
-            }
+        //  [ValidateAntiForgeryToken]
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(userShelf);
+        [HttpPost]
+        public async Task<IActionResult> Edit(string shelf)
+        {
+
+            string[] Search = shelf.Trim().Split(' ');
+            int bookid = Convert.ToInt32(Search[0]);
+            Category? category = (Category?)Convert.ToInt32(Search[1]);
+
+
+            UserShelf userShelf = new UserShelf();
+
+
+            int enrollid = (int)TempData["EnrollId"];
+
+            //userShelf.Book = _context.Book.Where(o => o.Id ==
+            //     bookid).FirstOrDefault();
+            //userShelf.UserDetails = _context.UserDetails.Where(o => o.EnrollId ==
+            //enrollid).FirstOrDefault();
+
+            var entries = from m in _context.UserShelf.Include(m => m.Book).Include(m => m.UserDetails)
+                          select m;
+            var entry = entries.Where(s => s.UserDetails.EnrollId.Equals(enrollid) && s.Book.Id.Equals(bookid)).Select(o => o.Serialno);
+
+            userShelf.Serialno = entry.FirstOrDefault();
+            userShelf.Category = category;
+
+
+            //var entry = entries.Where(s => s.UserDetails.EnrollId.Equals(userShelf.UserDetails.EnrollId) && s.Book.Id.Equals(userShelf.Book.Id)).Select(o=>o.Serialno);
+
+            _context.Update(userShelf);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UserShelfExists(userShelf.Serialno))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(userShelf);
+                    TempData.Keep("EnrollId");
+            TempData["AddedToShelf"] = "Added to" + category;
+            string message = "Added to" + category;
+
+            return Json(message);
+            
         }
+
+
         /// <summary>
         /// Remove from Shelf
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        // GET: UserShelves/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: UserShelves/Delete/
+
+
+      //  [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
-           
+
 
             var userShelf = await _context.UserShelf
                 .FirstOrDefaultAsync(m => m.Serialno == id);
             var user = from m in _context.UserShelf.Include(m => m.Book)
                        select m;
-         
+
             var users = user.Where(m => m.Serialno == id).Select(o => o.Book.Title);
             System.Diagnostics.Debug.WriteLine(users.First());
             string userName = users.FirstOrDefault();
-          
+
             if (userShelf == null)
             {
                 return NotFound();
             }
             System.Diagnostics.Debug.WriteLine(users);
             TempData["BookName"] = userName;
-            return View();
+            //  return View(users);
+            var shelfBook = await _context.UserShelf.FindAsync(id);
+            _context.UserShelf.Remove(userShelf);
+            await _context.SaveChangesAsync();
+            TempData["AddedToShelf"] = "Removed";
+            return Json("Removed");
         }
 
+        //public async Task<IActionResult> Delete(UserShelf users)
+        //{
+        //    return View();
+        //}
+
         // POST: UserShelves/Delete/5
-        [HttpPost, ActionName("Delete")]
+     //   [HttpPost, ActionName("Delete")]
+      //  [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var userShelf = await _context.UserShelf.FindAsync(id);
             _context.UserShelf.Remove(userShelf);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "UserShelves");
+            return RedirectToPage("Index", "UserShelves");
         }
 
         private bool UserShelfExists(int id)

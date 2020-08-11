@@ -52,8 +52,8 @@ namespace BookTracker.Controllers
                 }
             }
               
-            TempData["SignUp"] = " Invalid LogIn Credentials!";
-            return RedirectToAction("Index", "Books");
+            TempData["Message"] = " Invalid LogIn Credentials!";
+            return RedirectToAction("LogIn", "UserDetails");
         }
 
 
@@ -81,23 +81,28 @@ namespace BookTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                //     var user = await _context.UserDetails
-                //.FirstOrDefaultAsync(m => m.EmailId.Equals(userDetails.EmailId));
-                //     if (user ==null)
-                //     {
-                _context.Add(userDetails);
+               if(userDetails.DateOfBirth > DateTime.Today)
+                {
+                    TempData["InvalidMessage"] = "Invalid Date Of Birth";
+                    return RedirectToAction("SignUp", "UserDetails");
+                }
+                var user = await _context.UserDetails
+           .FirstOrDefaultAsync(m => m.EmailId.Equals(userDetails.EmailId));
+                if (user == null)
+                {
+                    _context.Add(userDetails);
                 await _context.SaveChangesAsync();
-                TempData["SignUp"] = "Successfully Registered!";
-                //     }
-                //     else
-                //     {
-                //         TempData["emailExist"]="Email"
-                //     }
+                TempData["Message"] = "Successfully Registered!";
+                }
+                else
+                {
+                    TempData["Message"] = "Already Registered";
+                     }
 
             }
-            else if (ModelState == null)
+            else
             {
-                TempData["SignUp"] = "Registration unsuccessful";
+                TempData["InvalidMessage"] = "Enter Valid Details";
                 return RedirectToAction("SignUp", "UserDetails");
             }
 

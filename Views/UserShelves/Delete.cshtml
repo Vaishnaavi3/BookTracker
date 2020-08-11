@@ -4,6 +4,7 @@
     ViewData["Title"] = "Delete";
 }
 
+@section DeleteModal{ 
     <div class="modal" tabindex="-1" id="DeleteShelfEntity"
          data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog">
@@ -17,7 +18,7 @@
                     </div>
                     @*<div>*@
 
-                        <form asp-action="Delete">
+                        <form asp-action="DeleteConfirmed">
                             <input type="hidden" asp-for="Serialno" />
                             <input type="submit" value="Delete" class="btn btn-danger" /> 
                             <button class="bg-secondary"type="submit" asp-action="Index">No</button>
@@ -40,3 +41,4 @@
                         });
 
                     </script>
+    }
