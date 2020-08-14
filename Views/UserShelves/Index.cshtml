@@ -118,11 +118,11 @@
                     <select id="dropdownAddToShelf" onchange="GetSelectedTextValue(this)">
                         <option class="text-secondary" value="">Option</option>
                         @{
-                            string reading = item.Book.Id + " 1";
+                            string reading = item.Book.Id + " 2";
                         }
-                        <option id="reading" value="@reading">Reading</option>ss
+                        <option id="reading" value="@reading">Reading</option>
                         @{
-                            string read = item.Book.Id + " 2";
+                            string read = item.Book.Id + " 1";
                         }
                         <option id="read" value="@read">Read</option>
                         @{
@@ -185,12 +185,12 @@
 
     $(document).ready(function () {
 
-        if (@TempData["category"] == 1) {
+        if (@TempData["category"] == 2) {
 
             $("#reading").prop("disabled", true);
 
 
-        } else if (@TempData["category"] == 2) {
+        } else if (@TempData["category"] == 1) {
 
             $("#read").remove();
         } else if (@TempData["category"] == 3) {
