@@ -6,7 +6,18 @@ Anyone can signUp and logIn to their homePage and Shelf.
               
               
 ![Website MainPage](/Images/BookTracker.png)
+**MainPage of BookTracker Website**
               
+![Website MainPage](/Images/BookTracker_LoginPage.png)
+*Monica Logging into account*
+              
+![Website MainPage](/Images/BookTracker_UserPage.png)
+*Monica's Homepage*
+              
+![Website MainPage](/Images/BookTracker_BookShelf.png)
+*Monica's BookShelf*
+
+
 
 Prerequisites:
               Visual Studio 2019 Asp.net Core
