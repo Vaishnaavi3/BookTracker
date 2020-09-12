@@ -3,14 +3,20 @@ BookTracker can be used to track the status of your book from "Reading" "Read" "
 Anyone can signUp and logIn to their homePage and Shelf.
 
 
+
               
               
 ![Website MainPage](/Images/BookTracker.png)
 **MainPage of BookTracker Website**
+
+*
               
 ![Website MainPage](/Images/BookTracker_LoginPage.png)
 *Monica Logging into account*
-              
+ 
+ *
+ 
+ 
 ![Website MainPage](/Images/BookTracker_UserPage.png)
 *Monica's Homepage*
               
