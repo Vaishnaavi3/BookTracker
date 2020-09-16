@@ -2,6 +2,8 @@
 BookTracker can be used to track the status of your book from "Reading" "Read" "Keep On Shelf".
 Anyone can signUp and logIn to their homePage and Shelf.
 
+**Technology** : ASP.NET MVC, SQL 
+
 
 
               
